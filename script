@@ -1,0 +1,37 @@
+CREATE DATABASE clientes;
+
+USE clientes;
+
+CREATE TABLE pagamentos (
+Pagamento_ID INT UNSIGNED UNIQUE NOT NULL PRIMARY KEY,
+Data_Pagamento DATE NOT NULL,
+Valor_Pago_Plano DECIMAL(7,2) NOT NULL,
+Tipo_Plano VARCHAR(20) NOT NULL,
+Meses_Vigencia TINYINT UNSIGNED NOT NULL,
+Cliente_ID_FK INT UNSIGNED
+);
+
+CREATE TABLE clientes (
+id INT UNSIGNED UNIQUE NOT NULL PRIMARY KEY,
+nome VARCHAR(20) NOT NULL,
+cidade VARCHAR(50) NOT NULL,
+estado CHAR(2) NOT NULL,
+segmento VARCHAR(200) NOT NULL
+);
+
+SHOW TABLES;
+DESCRIBE pagamentos;
+DESCRIBE clientes;
+
+# Importar dados via MySQL Workbench no formato .csv e/ou .json 
+# (Arquivos importados: tabelas_clientes_pagamentos.csv e dados_clientes.json)
+
+SELECT * FROM pagamentos;
+SELECT * FROM clientes;
+
+ALTER TABLE pagamentos ADD FOREIGN KEY (Cliente_ID_FK) REFERENCES clientes(id)
+ON UPDATE RESTRICT
+ON DELETE RESTRICT;
+
+SELECT * FROM pagamentos;
+SELECT * FROM clientes;
