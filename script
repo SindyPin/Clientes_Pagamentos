@@ -23,8 +23,7 @@ SHOW TABLES;
 DESCRIBE pagamentos;
 DESCRIBE clientes;
 
-# Importar dados via MySQL Workbench no formato .csv e/ou .json 
-# (Arquivos importados: tabelas_clientes_pagamentos.csv e dados_clientes.json)
+# Importar dados
 
 SELECT * FROM pagamentos;
 SELECT * FROM clientes;
@@ -35,3 +34,151 @@ ON DELETE RESTRICT;
 
 SELECT * FROM pagamentos;
 SELECT * FROM clientes;
+
+# Objetivo: Mostrar quanto paga cada cliente por mês/ano: Criar PIVOT TABLE de Set/2016 a Jul/2019
+
+CREATE VIEW ClientesXData AS
+SELECT c.id AS Cliente,
+
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2016-September' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Set/2016`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2016-October' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Out/2016`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2016-November' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Nov/2016`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2016-December' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Dec/2016`,
+   
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-January' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jan/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-February' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Feb/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-March' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mar/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-April' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Abr/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-May' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mai/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-June' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jun/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-July' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jul/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-August' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Ago/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-September' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Set/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-October' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Out/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-November' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Nov/2017`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2017-December' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Dec/2017`,
+   
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-January' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jan/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-February' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Feb/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-March' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mar/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-April' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Abr/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-May' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mai/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-June' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jun/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-July' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jul/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-August' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Ago/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-September' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Set/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-October' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Out/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-November' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Nov/2018`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2018-December' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Dec/2018`,
+   
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-January' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jan/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-February' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Feb/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-March' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mar/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-April' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Abr/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-May' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Mai/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-June' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jun/2019`,
+   SUM(CASE WHEN Date_format(p.Data_Pagamento, '%Y-%M') = '2019-July' THEN p.Valor_Pago_Plano ELSE 0 END) AS `Jul/2019`
+   
+FROM clientes c
+INNER JOIN pagamentos p ON c.id = p.Cliente_ID_FK
+GROUP BY c.id;
+
+SELECT * FROM ClientesXData;
+
+# SaaS Metrics Analysis:
+
+# MRR (Monthly Recurring Revenue = Receita mensal por cliente)
+# ARPU (Average Revenue Per User = Receita Média por usuário):
+
+CREATE VIEW MRR_Conta_ARPU AS 
+SELECT c.id AS Cliente,
+   ROUND (SUM(p.Valor_Pago_Plano) / SUM(p.Meses_Vigencia), 2) AS MRR,
+   COUNT(c.id) AS Contas,
+   ROUND (SUM(p.Valor_Pago_Plano) / SUM(p.Meses_Vigencia) / COUNT(c.id), 2) AS ARPU
+FROM clientes c
+INNER JOIN pagamentos p ON c.id = p.Cliente_ID_FK
+GROUP BY c.id;
+
+SELECT * FROM MRR_Conta_ARPU;
+
+# New/Expansion/Contraction MRR:
+
+CREATE VIEW New_Expansion_Contraction_MRR AS
+SELECT DATE_FORMAT(mes_atual.Data_Pagamento, '%b-%Y') AS `Mês/Ano`,
+   SUM(CASE WHEN mes_anterior.Data_Pagamento IS NULL 
+      THEN mes_atual.Valor_Pago_Plano 
+      ELSE 0 
+   END) AS New_MRR,
+   SUM(CASE 
+      WHEN mes_anterior.Valor_Pago_Plano IS NULL 
+      THEN 0
+      WHEN mes_anterior.Valor_Pago_Plano < mes_atual.Valor_Pago_Plano
+      THEN mes_atual.Valor_Pago_Plano - mes_anterior.Valor_Pago_Plano
+      ELSE 0 
+   END) AS Expansion_MRR,
+   SUM(CASE 
+      WHEN mes_anterior.Valor_Pago_Plano IS NULL 
+      THEN 0
+      WHEN mes_anterior.Valor_Pago_Plano > mes_atual.Valor_Pago_Plano
+      THEN mes_anterior.Valor_Pago_Plano - mes_atual.Valor_Pago_Plano
+      ELSE 0 
+   END) AS Contraction_MRR
+FROM pagamentos AS mes_atual 
+LEFT JOIN pagamentos mes_anterior 
+   ON mes_atual.Cliente_ID_FK = mes_anterior.Cliente_ID_FK
+   AND mes_atual.Data_Pagamento = mes_anterior.Data_Pagamento + INTERVAL 1 MONTH
+GROUP BY MONTH (mes_atual.Data_Pagamento), YEAR (mes_atual.Data_Pagamento);
+
+SELECT * FROM New_Expansion_Contraction_MRR;
+
+# Cancelled MRR = valor pago no mês anterior ao analisado por clientes que não pagaram o mês analisado:
+
+CREATE VIEW Cancelled_MRR_Total AS
+SELECT DATE_FORMAT(mes_anterior.Data_Pagamento + INTERVAL 1 MONTH, '%b-%Y') AS `Mês/Ano`,
+   SUM(CASE WHEN mes_atual.Valor_Pago_Plano IS NULL 
+      THEN mes_anterior.Valor_Pago_Plano 
+      ELSE 0 
+   END) AS Cancelled_MRR
+FROM pagamentos AS mes_anterior 
+LEFT JOIN pagamentos AS mes_atual 
+   ON mes_anterior.Cliente_ID_FK = mes_atual.Cliente_ID_FK 
+   AND mes_anterior.Data_Pagamento = mes_atual.Data_Pagamento - INTERVAL 1 MONTH
+GROUP BY MONTH (mes_anterior.Data_Pagamento), YEAR (mes_anterior.Data_Pagamento);
+
+SELECT * FROM Cancelled_MRR_Total;
+
+# Cálculo das métricas SaaS TOTAIS:
+
+CREATE VIEW Metricas_SaaS_Totais AS
+SELECT n.*, c.Cancelled_MRR 
+FROM New_Expansion_Contraction_MRR AS n
+LEFT JOIN Cancelled_MRR_Total AS c ON n.`Mês/Ano` = c.`Mês/Ano`
+UNION ALL
+SELECT n.*, c.Cancelled_MRR
+FROM New_Expansion_Contraction_MRR AS n
+RIGHT JOIN Cancelled_MRR_Total AS c ON n.`Mês/Ano` = c.`Mês/Ano`
+WHERE n.`Mês/Ano` IS NULL;
+
+SELECT * FROM Metricas_SaaS_Totais;
+
+# Net_New_MRR:
+CREATE VIEW Net_New_MRR AS
+SELECT m.`Mês/Ano`,
+       m.New_MRR,
+       m.Expansion_MRR,
+       m.Contraction_MRR * (-1) AS Contraction_MRR,
+       m.Cancelled_MRR * (-1) AS Cancelled_MRR,
+       m.New_MRR + m.Expansion_MRR - m.Contraction_MRR - m.Cancelled_MRR AS Net_New_MRR
+FROM Metricas_SaaS_Totais AS m;
+
+# Mostrar todas as análises feitas:
+
+SELECT * FROM MRR_Conta_ARPU;
+SELECT * FROM ClientesXData;
+SELECT * FROM New_Expansion_Contraction_MRR;
+SELECT * FROM Cancelled_MRR_Total;
+SELECT * FROM Metricas_SaaS_Totais;
+SELECT * FROM Net_New_MRR;
+
+SHOW FULL TABLES WHERE table_type = 'VIEW';
+SHOW FULL PROCESSLIST;
