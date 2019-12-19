@@ -195,6 +195,51 @@ CREATE VIEW Quantidade_Clientes_Estado AS
 SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY estado ORDER BY estado;
 SELECT * FROM Quantidade_Clientes_Estado;
 
+# Total clientes região NORTE:
+CREATE VIEW Regiao_Norte AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes AS Quantidade_Clientes_Regiao
+WHERE estado = 'RO' OR estado = 'AC' OR estado = 'AM' OR estado = 'RR' OR estado = 'PA' OR estado = 'AP' OR estado = 'RO'
+GROUP BY estado ORDER BY estado;
+SELECT * FROM Regiao_Norte;
+
+# Total clientes região NORDESTE:
+CREATE VIEW Regiao_Nordeste AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes AS Quantidade_Clientes_Regiao
+WHERE estado = 'MA' OR estado = 'PI' OR estado = 'CE' OR estado = 'RN' OR estado = 'PB' OR estado = 'PE' OR estado = 'AL' 
+OR estado = 'SE' OR estado = 'BA'
+GROUP BY estado ORDER BY estado;
+SELECT * FROM Regiao_Nordeste;
+
+# Total clientes região CENTRO-OESTE:
+CREATE VIEW Regiao_Centro_Oeste AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes AS Quantidade_Clientes_Regiao
+WHERE estado = 'MT' OR estado = 'GO' OR estado = 'MS' OR estado = 'uf'
+GROUP BY estado ORDER BY estado;
+SELECT * FROM Regiao_Centro_Oeste;
+
+# Total clientes região SUDESTE:
+CREATE VIEW Regiao_Sudeste AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes AS Quantidade_Clientes_Regiao
+WHERE estado = 'MG' OR estado = 'ES' OR estado = 'SP' OR estado = 'RJ'
+GROUP BY estado ORDER BY estado;
+SELECT * FROM Regiao_Sudeste;
+
+# Total clientes região SUL:
+CREATE VIEW Regiao_Sul AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes AS Quantidade_Clientes_Regiao
+WHERE estado = 'PR' OR estado = 'SC' OR estado = 'RS'
+GROUP BY estado ORDER BY estado;
+SELECT * FROM Regiao_Sul;
+
+# Total clientes por cada região geográfica:
+CREATE VIEW Quantidade_Clientes_Regiao AS
+SELECT SUM(Regiao_Norte.Quantidade_Clientes) AS Regiao_Norte, 
+       SUM(Regiao_Nordeste.Quantidade_Clientes) AS Regiao_Nordeste, 
+       SUM(Regiao_Centro_Oeste.Quantidade_Clientes) AS Regiao_Centro_Oeste, 
+       SUM(Regiao_Sudeste.Quantidade_Clientes) AS Regiao_Sudeste,
+       SUM(Regiao_Sul.Quantidade_Clientes) AS Regiao_Sul
+FROM Regiao_Norte, Regiao_Nordeste, Regiao_Centro_Oeste, Regiao_Sudeste, Regiao_Sul;
+
 # Total clientes por segmento:
 CREATE VIEW Quantidade_Clientes_Segmento AS
 SELECT segmento, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY segmento ORDER BY segmento;
