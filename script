@@ -182,3 +182,20 @@ SELECT * FROM Net_New_MRR;
 
 SHOW FULL TABLES WHERE table_type = 'VIEW';
 SHOW FULL PROCESSLIST;
+
+# Criando novas tabelas a partir da tabela "clientes":
+
+# Total clientes por cidade:
+CREATE VIEW Quantidade_Clientes_Cidade AS
+SELECT cidade, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY cidade ORDER BY cidade;
+SELECT * FROM Quantidade_Clientes_Cidade;
+
+# Total clientes por estado:
+CREATE VIEW Quantidade_Clientes_Estado AS
+SELECT estado, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY estado ORDER BY estado;
+SELECT * FROM Quantidade_Clientes_Estado;
+
+# Total clientes por segmento:
+CREATE VIEW Quantidade_Clientes_Segmento AS
+SELECT segmento, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY segmento ORDER BY segmento;
+SELECT * FROM Quantidade_Clientes_Segmento;
