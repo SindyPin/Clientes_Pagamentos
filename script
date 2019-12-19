@@ -244,3 +244,6 @@ FROM Regiao_Norte, Regiao_Nordeste, Regiao_Centro_Oeste, Regiao_Sudeste, Regiao_
 CREATE VIEW Quantidade_Clientes_Segmento AS
 SELECT segmento, COUNT(id) AS Quantidade_Clientes FROM clientes GROUP BY segmento ORDER BY segmento;
 SELECT * FROM Quantidade_Clientes_Segmento;
+
+# Simulando acesso para edição de todas as tabelas do DB "clientes":
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE ON clientes.* TO 'user'@'localhost';
